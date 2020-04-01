@@ -6,16 +6,17 @@ class GameRunner:
     def __init__(self):
         self.dice = Die.create_dice(5)
         self.reset()
-
+        
     def reset(self):
         self.round = 1
         self.wins = 0
         self.loses = 0
+        print("RESET")
 
     def answer(self):
         total = 0
         for die in self.dice:
-            total += 1
+            total += die.value
         return total
 
     @classmethod
@@ -23,8 +24,9 @@ class GameRunner:
         # Probably counts wins or something.
         # Great variable name, 10/10.
         c = 0
+        runner = cls()
         while True:
-            runner = cls()
+            runner.dice = Die.create_dice(5)
 
             print("Round {}\n".format(runner.round))
 
@@ -47,14 +49,14 @@ class GameRunner:
             print("Wins: {} Loses {}".format(runner.wins, runner.loses))
             runner.round += 1
 
-            if c == 6:
+            if c == 5:
                 print("You won... Congrats...")
                 print("The fact it took you so long is pretty sad")
                 break
 
             prompt = input("Would you like to play again?[Y/n]: ")
 
-            if prompt == 'y' or prompt == '':
+            if prompt == 'y' or prompt == 'Y':
                 continue
             else:
-                i_just_throw_an_exception()
+                break
